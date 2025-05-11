@@ -17,8 +17,10 @@ func (app *application) routes() http.Handler { //returns a http.Handler
 	mux.Use(middleware.Recoverer) //'Use' will apply to every request that comes into our application
 	// middleware.Recoverer does is when our application panics, it will log it along with a backtrace and show us where the error
 	// took place. It'll send back the nessesary header, which is HTTP 500
+	mux.Use(app.enableCORS)
 
 	mux.Get("/", app.Home)
+	mux.Get("/movies", app.AllMovies)
 
 	return mux
 }
